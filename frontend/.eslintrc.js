@@ -1,19 +1,26 @@
 module.exports = {
     extends: [
-        'airbnb-typescript/base',
-        'plugin:@typescript-eslint/recommended'
+        'eslint:recommended',
+        'plugin:react/recommended'
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2020,
+        sourceType: 'module',
         project: './tsconfig.json'
     },
+    env: {
+        'browser': true
+    },
+    settings: {
+        react: {
+            pragma: 'React',
+            version: 'detect'
+        }
+    },
     rules: {
-        '@typescript-eslint/indent': ['error', 2],
+        'react/jsx-uses-react': 1,
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
-        '@typescript-eslint/interface-name-prefix': ['error', 'always'],
         'max-classes-per-file': 'off',
         'no-param-reassign': ['error', { 'props': false }],
         'import/prefer-default-export': 'off',
