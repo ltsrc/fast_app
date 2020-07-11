@@ -23,6 +23,7 @@
     "build": "tsc",
     "clean": "rm -rf build",
     "lint": "eslint -c .eslintrc.js ./src --ext .ts --fix",
+    "lint:fix": "eslint -c .eslintrc.js ./src --ext .tsx --fix",
     "start": "ts-node src/index.ts",
     "start:production": "node build/src/index.js",
     "test": "ava --verbose tests/*.tests.ts",
