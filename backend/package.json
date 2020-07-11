@@ -4,9 +4,12 @@
   "description": "Express API",
   "main": "src/index.ts",
   "dependencies": {
+    "@types/express": "^4.17.7",
+    "env-var": "^6.2.0",
     "express": "^4.17.1",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "ava": "^3.10.1",
@@ -15,11 +18,12 @@
   },
   "scripts": {
     "build": "tsc",
-    "clear": "rm -rf build",
+    "clean": "rm -rf build",
+    "lint": "eslint -c .eslintrc.js ./src --ext .ts",
     "start": "ts-node src/index.ts",
-    "watch": "nodemon",
     "start:production": "node build/src/index.js",
-    "test": "ava --verbose tests/*.tests.ts"
+    "test": "ava --verbose tests/*.tests.ts",
+    "watch": "nodemon"
   },
   "author": "ltsrc",
   "license": "MIT"
