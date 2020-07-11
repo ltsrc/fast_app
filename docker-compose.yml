@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MODE
+      - PORT=5000
+      - HOST=backend
+    networks:
+      - app
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - MODE
+      - PORT=3000
+      - HOST=frontend
+      - BACKEND_PORT=5000
+      - BACKEND_HOST=backend
+
+networks:
+  app:
