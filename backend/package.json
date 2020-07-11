@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Express API",
+  "main": "src/index.ts",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "ava": "^3.10.1",
+    "eslint": "^7.4.0",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clear": "rm -rf build",
+    "start": "ts-node src/index.ts",
+    "watch": "nodemon",
+    "start:production": "node build/src/index.js",
+    "test": "ava --verbose tests/*.tests.ts"
+  },
+  "author": "ltsrc",
+  "license": "MIT"
+}
