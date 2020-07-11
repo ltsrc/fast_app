@@ -9,7 +9,7 @@ module.exports = {
         project: './tsconfig.json'
     },
     rules: {
-        '@typescript-eslint/indent': ['error', 4],
+        '@typescript-eslint/indent': ['error', 2],
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
@@ -19,7 +19,7 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'no-underscore-dangle': 'off',
         'no-use-before-define': ['error', 'nofunc'],
-        'indent': ['error', 4],
+        'indent': ['error', 2],
         'brace-style': ['error', '1tbs'],
         'no-tabs': 'off',
         'max-len': 'off',

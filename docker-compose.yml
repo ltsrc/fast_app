@@ -24,6 +24,8 @@ services:
       - HOST=frontend
       - BACKEND_PORT=5000
       - BACKEND_HOST=backend
+    networks:
+      - app
 
 networks:
   app:

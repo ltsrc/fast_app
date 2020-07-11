@@ -12,14 +12,17 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
     "ava": "^3.10.1",
     "eslint": "^7.4.0",
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-plugin-import": "^2.22.0",
     "nodemon": "^2.0.4"
   },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf build",
-    "lint": "eslint -c .eslintrc.js ./src --ext .ts",
+    "lint": "eslint -c .eslintrc.js ./src --ext .ts --fix",
     "start": "ts-node src/index.ts",
     "start:production": "node build/src/index.js",
     "test": "ava --verbose tests/*.tests.ts",
