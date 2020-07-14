@@ -4,14 +4,14 @@
  */
 
 import helmet from 'helmet';
-
 import express from 'express';
-import usersRouter from './users/router';
+
 import {
     logMiddleware,
     corsMiddleware,
     errorMiddleware,
 } from './middlewares'
+import usersRouter from './users/router';
 
 const app = express();
 
