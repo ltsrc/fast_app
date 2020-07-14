@@ -15,6 +15,7 @@ module.exports = {
         '@typescript-eslint/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
         '@typescript-eslint/interface-name-prefix': ['error', 'always'],
         'max-classes-per-file': 'off',
+        'eol-last': ['error', 'always'],
         'no-param-reassign': ['error', { 'props': false }],
         'import/prefer-default-export': 'off',
         'no-underscore-dangle': 'off',

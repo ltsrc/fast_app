@@ -12,14 +12,14 @@ const logger = winston.createLogger({
             format: winston.format.combine(
                 winston.format.colorize(),
                 winston.format.timestamp(),
-                winston.format.printf((info) => `[${info.level}]: ${info.message} [${info.timestamp}]`),
+                winston.format.printf((info) => `[${info.timestamp}][${info.level}]: ${info.message}`),
             ),
         }),
         new winston.transports.File({
             filename: 'app.log',
             format: winston.format.combine(
                 winston.format.timestamp(),
-                winston.format.printf((info) => `[${info.level}]: ${info.message} [${info.timestamp}]`),
+                winston.format.printf((info) => `[${info.timestamp}][${info.level}]: ${info.message}`),
             ),
         }),
     ],
