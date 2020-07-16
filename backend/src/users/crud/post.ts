@@ -5,6 +5,6 @@
 
 import express from 'express';
 
-export default async function post(req: express.Request, res: express.Response) {
-
+export default async function post(req: express.Request, res: express.Response): Promise<express.Response> {
+    return res.send('test');
 }

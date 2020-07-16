@@ -4,16 +4,20 @@
  */
 
 import cors from 'cors';
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import { validate } from 'class-validator';
+import { plainToClass } from 'class-transformer';
+import { ClassType } from 'class-transformer/ClassTransformer';
 
 import logger from './logger';
 import { MODE, CORS_WHITELIST, MODES } from './config';
 import { BaseError } from './error';
 
 let requestCounter = BigInt(0);
-export function logMiddleware(req: express.Request, res: express.Response, next: Function): void {
-    const id = requestCounter++;
+export function logMiddleware(req: express.Request, res: express.Response, next: () => void): void {
+    const id = requestCounter;
+    requestCounter += BigInt(1);
     const { url } = req;
     const start = Date.now();
 
@@ -40,7 +44,7 @@ export const corsMiddleware = cors({
     },
 });
 
-export function errorMiddleware(error: Error, _req: express.Request, res: express.Response, _next: Function) {
+export function errorMiddleware(error: Error, _req: express.Request, res: express.Response, _next: () => void): express.Response {
     if (error instanceof BaseError) {
         return res.status(error.code).send({
             id: error.id,
@@ -56,5 +60,25 @@ export function errorMiddleware(error: Error, _req: express.Request, res: expres
 		${error.stack}
 	`);
 
-    return res.status(INTERNAL_SERVER_ERROR).send({ error: 'USE001' });
+    return res.status(INTERNAL_SERVER_ERROR).send({ error: 'ISE001' });
+}
+
+function validationMiddleware<T, V>(type: ClassType<T>, accessor: (t: express.Request) => V): RequestHandler {
+    return async (req, _res, next) => {
+        const obj: V = accessor(req);
+        const errors = await validate(plainToClass<T, V>(type, obj));
+        if (errors.length !== 0) {
+            const message = errors.join('\n');
+            next(new Error(message));
+        }
+        next();
+    };
+}
+
+export function bodyMiddleware<T>(type: ClassType<T>): RequestHandler {
+    return validationMiddleware(type, (req) => req.body);
+}
+
+export function queryMiddleware<T>(type: ClassType<T>): RequestHandler {
+    return validationMiddleware(type, (req) => req.query);
 }

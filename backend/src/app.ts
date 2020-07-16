@@ -10,7 +10,7 @@ import {
     logMiddleware,
     corsMiddleware,
     errorMiddleware,
-} from './middlewares'
+} from './middlewares';
 import usersRouter from './users/router';
 
 const app = express();
@@ -21,6 +21,6 @@ app.use(logMiddleware);
 app.use(corsMiddleware);
 app.use(errorMiddleware);
 
-app.use(`/users`, usersRouter);
+app.use('/users', usersRouter);
 
 export default app;

@@ -5,7 +5,11 @@ module.exports = {
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2020,
+        ecmaVersion: 6,
+        'sourceType': 'module',
+        'ecmaFeatures': {
+            'modules': true
+        },
         project: './tsconfig.json'
     },
     rules: {
@@ -13,7 +17,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
-        '@typescript-eslint/interface-name-prefix': ['error', 'always'],
+        '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
         'max-classes-per-file': 'off',
         'eol-last': ['error', 'always'],
         'no-param-reassign': ['error', { 'props': false }],
