@@ -24,7 +24,7 @@
   "devDependencies": {
     "@prisma/cli": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
-    "ava": "^3.10.1",
+    "ava": "^3.11.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-typescript": "^8.0.2",
     "eslint-plugin-import": "^2.22.0",
@@ -34,12 +34,23 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf build",
-    "lint": "eslint -c .eslintrc.js ./src --ext .ts --fix",
+    "lint": "eslint -c .eslintrc.js ./src --ext .ts",
     "lint:fix": "eslint -c .eslintrc.js ./src --ext .ts --fix",
     "start": "ts-node src/index.ts",
     "start:production": "node build/src/index.js",
-    "test": "ava --verbose tests/*.tests.ts",
+    "test": "ava --verbose --serial --timeout 60000",
     "watch": "nodemon"
+  },
+  "ava": {
+    "files": [
+      "src/**/*.test.ts"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   },
   "author": "ltsrc",
   "license": "MIT"

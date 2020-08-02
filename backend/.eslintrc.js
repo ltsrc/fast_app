@@ -18,6 +18,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        'import/no-extraneous-dependencies': ['error', { 'devDependencies': true, 'optionalDependencies': false, 'peerDependencies': false }],
         'max-classes-per-file': 'off',
         'eol-last': ['error', 'always'],
         'no-param-reassign': ['error', { 'props': false }],

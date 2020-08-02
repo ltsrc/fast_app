@@ -11,8 +11,13 @@ import { plainToClass } from 'class-transformer';
 import { ClassType } from 'class-transformer/ClassTransformer';
 
 import logger from './logger';
-import { MODE, CORS_WHITELIST, MODES } from './config';
-import { BaseError } from './error';
+import {
+    MODE,
+    CORS_WHITELIST,
+    MODES,
+    APP_ID,
+} from './config';
+import { BaseError, InvalidParamsError } from './error';
 
 let requestCounter = BigInt(0);
 export function logMiddleware(req: express.Request, res: express.Response, next: () => void): void {
@@ -22,10 +27,10 @@ export function logMiddleware(req: express.Request, res: express.Response, next:
     const start = Date.now();
 
     res.locals.requestId = id;
-    logger.debug(`[${req.method} ${id}] ${url} from ${req.ip}`);
+    logger.debug(`[${req.method} ${APP_ID}_${id}] ${url} from ${req.ip}`);
     res.on('finish', () => {
         const elapsed = Date.now() - start;
-        logger.debug(`[${req.method} ${id}][${res.statusCode}] ${url} in ${elapsed}ms`);
+        logger.debug(`[${req.method} ${APP_ID}_${id}][${res.statusCode}] ${url} in ${elapsed}ms`);
     });
 
     return next();
@@ -49,7 +54,7 @@ export function errorMiddleware(error: Error, _req: express.Request, res: expres
         return res.status(error.code).send({
             id: error.id,
             code: error.code,
-            msg: error.message,
+            message: error.message,
         });
     }
 
@@ -68,8 +73,7 @@ function validationMiddleware<T, V>(type: ClassType<T>, accessor: (t: express.Re
         const obj: V = accessor(req);
         const errors = await validate(plainToClass<T, V>(type, obj));
         if (errors.length !== 0) {
-            const message = errors.join('\n');
-            next(new Error(message));
+            next(new InvalidParamsError(JSON.stringify(errors)));
         }
         next();
     };

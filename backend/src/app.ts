@@ -19,8 +19,9 @@ app.use(helmet());
 app.use(express.json());
 app.use(logMiddleware);
 app.use(corsMiddleware);
-app.use(errorMiddleware);
 
 app.use('/users', usersRouter);
+
+app.use(errorMiddleware);
 
 export default app;

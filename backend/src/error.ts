@@ -6,10 +6,11 @@
 import {
     BAD_REQUEST, INTERNAL_SERVER_ERROR,
     NOT_FOUND,
+    CONFLICT,
 } from 'http-status-codes';
 
 export class BaseError extends Error {
-    code: number;
+    code!: number;
     id!: string;
     stackTrace?: string;
 
@@ -23,18 +24,30 @@ export class BaseError extends Error {
 
 export class InternalServerError extends BaseError {
     constructor(id?: string) {
-        super(INTERNAL_SERVER_ERROR, 'unexpected error occurred', 'ISE001' || id);
+        super(INTERNAL_SERVER_ERROR, 'unexpected error occurred', 'ISE#BASE_ERROR#0001' || id);
     }
 }
 
 export class NotFoundError extends BaseError {
     constructor(id?: string) {
-        super(NOT_FOUND, 'resource not found', 'NFE001' || id);
+        super(NOT_FOUND, 'resource not found', 'NFE#BASE_ERROR#0001' || id);
     }
 }
 
 export class BadRequestError extends BaseError {
     constructor(id?: string) {
-        super(BAD_REQUEST, 'invalid request', 'BRE001' || id);
+        super(BAD_REQUEST, 'invalid request', 'BRE#BASE_ERROR#0001' || id);
+    }
+}
+
+export class ConflictError extends BaseError {
+    constructor(id?: string) {
+        super(CONFLICT, 'conflicting request', 'CE#BASE_ERROR#0001' || id);
+    }
+}
+
+export class InvalidParamsError extends BaseError {
+    constructor(errors: string) {
+        super(BAD_REQUEST, errors, 'IPE#BASE_ERROR#0001');
     }
 }

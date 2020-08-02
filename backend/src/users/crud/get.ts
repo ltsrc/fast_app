@@ -4,23 +4,24 @@
  */
 
 import express from 'express';
-import { Min, IsNumber } from 'class-validator';
-import { User } from '@prisma/client';
+import {
+    IsEmail,
+    IsString,
+} from 'class-validator';
 
-import database from '../../database';
-import { queryMiddleware } from '../../middlewares';
+// import database from '../../database';
+import { bodyMiddleware } from '../../middlewares';
 
 export class GetUserDto {
-    @IsNumber()
-    @Min(1)
-    test!: number;
+    @IsEmail()
+    email?: string;
+
+    @IsString()
+    id?: string;
 }
 
-export const getMiddleware = queryMiddleware(GetUserDto);
+export const getMiddleware = bodyMiddleware(GetUserDto);
 
-export async function get(req: express.Request, _res: express.Response): Promise<User> {
-    const query = req.query as unknown as GetUserDto;
-    console.log(query);
-    const response = await database.user.findOne({ where: { id: 0 } });
-    return response!;
+export async function get(_req: express.Request, res: express.Response): Promise<express.Response> {
+    return res.send('test');
 }

@@ -15,7 +15,7 @@
     "node_modules",
     "prisma",
     "build",
-    "tests"
+    "./src/**/*.test.ts"
   ],
   "include": [
     "./src/**/*.ts",
